@@ -38,8 +38,8 @@ workflows:
     jobs:
       - checkout
       - test1:
-        requires:
-          - checkout
+          requires:
+            - checkout
       - test2:
           requires:
             - checkout
