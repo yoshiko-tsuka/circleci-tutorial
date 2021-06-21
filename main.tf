@@ -18,7 +18,7 @@ resource "aws_instance" "app_server" {
   ami           = "ami-0800fc0fa715fdcfe"
   instance_type = "t2.micro"
   key_name      = aws_key_pair.personal.id
-  user_data     = file("${var.root_dir}/ec2/userdata/nginx")
+  user_data     = file("${var.root_dir}/ec2/userdata/apache")
   vpc_security_group_ids = ["${aws_security_group.web_server.id}"]
   tags = {
     Name = "WebServerInstance"
