@@ -28,22 +28,26 @@ jobs:
     executor: ruby-img
     steps:
       - run: echo test2
-  deploy:
+  deploy-to-staging:
     executor: ruby-img
     steps:
-      - run: echo deploy
+      - run: echo deploy-to-staging
 workflows:
   version: 2
   commit:
     jobs:
       - checkout
       - test1:
-          requires:
-            - checkout
+        requires:
+          - checkout
       - test2:
           requires:
             - checkout
-      - deploy:
+      - deploy-to-staging:
           requires:
             - test1
             - test2
+          filters: &staging-filters
+            branches:
+              only:
+                - staging
