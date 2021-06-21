@@ -38,3 +38,36 @@ resource "aws_codedeploy_deployment_group" "yoshiko_test_grp" {
     value = aws_instance.app_server.tags.Name
   }
 }
+
+resource "aws_s3_bucket" "cdl_lambda" {
+  bucket = "yoshiko-codedeploy"
+  acl    = "private"
+
+  tags = {
+    Name        = "codedeploy repository"
+    Environment = var.env
+  }
+
+  versioning {
+    enabled = true
+  }
+}
+
+data "aws_iam_policy_document" "yoshiko_ec2_codedeploy_conf" {
+  statement {
+    sid = "S3GetAndList"
+    actions = [
+      "s3:Get*",
+      "s3:List*"
+    ]
+    resources = [
+      "arn:aws:s3:::yoshiko-codedeploy/${var.env}/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "yoshiko_ec2_codedeploy" {
+  name        = "yoshiko-ec2-codedeploy-${var.env}"
+  description = "codedeploy ec2 resource"
+  policy      = data.aws_iam_policy_document.yoshiko_ec2_codedeploy_conf.json
+}
