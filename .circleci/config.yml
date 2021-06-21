@@ -37,13 +37,17 @@ workflows:
   commit:
     jobs:
       - checkout
-      - test1
+      - test1:
         requires:
           - checkout
-      - test2
-        requires:
-          - checkout
-      - deploy
-        requires:
-          - test1
-          - test2
+      - test2:
+          requires:
+            - checkout
+      - deploy-to-staging:
+          requires:
+            - test1
+            - test2
+          filters: &staging-filters
+            branches:
+              only:
+                - main
