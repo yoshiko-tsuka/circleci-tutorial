@@ -37,13 +37,13 @@ workflows:
   commit:
     jobs:
       - checkout
-      - test1
+      - test1:
         requires:
           - checkout
-      - test2
+      - test2:
         requires:
           - checkout
-      - deploy
+      - deploy:
         requires:
           - test1
           - test2
