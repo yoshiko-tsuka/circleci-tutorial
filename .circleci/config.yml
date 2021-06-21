@@ -38,12 +38,12 @@ workflows:
     jobs:
       - checkout
       - test1:
-        requires:
-          - checkout
+          requires:
+            - checkout
       - test2:
           requires:
             - checkout
-      - deploy-to-staging:
+      - deploy:
           requires:
             - test1
             - test2
