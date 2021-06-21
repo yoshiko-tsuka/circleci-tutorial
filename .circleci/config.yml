@@ -16,7 +16,34 @@ executors:
 #     jobs:
 #       - welcome/run
 jobs:
-  build:
+  checkout:
     executor: ruby-img
     steps:
-      - run: echo Hello!!
+      - run: echo checkout1
+  test1:
+    executor: ruby-img
+    steps:
+      - run: echo test1
+  test2:
+    executor: ruby-img
+    steps:
+      - run: echo test2
+  deploy:
+    executor: ruby-img
+    steps:
+      - run: echo deploy
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - checkout
+      - test1
+        requires:
+          - checkout
+      - test2
+        requires:
+          - checkout
+      - deploy
+        requires:
+          - test1
+          - test2
