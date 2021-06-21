@@ -2,4 +2,4 @@
 
 ### 目的
 
-circle ci & terraform と友達になる
+circle ci & terraform と友達になる!!
