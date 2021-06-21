@@ -28,10 +28,10 @@ jobs:
     executor: ruby-img
     steps:
       - run: echo test2
-  deploy-to-staging:
+  deploy:
     executor: ruby-img
     steps:
-      - run: echo deploy-to-staging
+      - run: echo deploy
 workflows:
   version: 2
   commit:
@@ -50,4 +50,4 @@ workflows:
           filters: &staging-filters
             branches:
               only:
-                - staging
+                - main
