@@ -53,9 +53,8 @@ workflows:
             branches:
               only:
                 - main
-          context: AWS_CREDENTIALS
           application-name: yoshiko-test-main
-          bundle-bucket: yoshiko-codedeploy/main/
-          bundle-key: ${CODE_DEPLOY_S3_KEY}
+          bundle-bucket: yoshiko-codedeploy/main
+          bundle-key: ${CIRCLE_BUILD_NUM}
           deployment-group: yoshiko-test-grp-main
           service-role-arn: ${CODE_DEPLOY_ARN}
