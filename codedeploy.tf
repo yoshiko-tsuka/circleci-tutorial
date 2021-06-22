@@ -18,6 +18,11 @@ resource "aws_iam_role" "yoshiko_codedeploy" {
 EOF
 }
 
+resource "aws_iam_role_policy_attachment" "yoshiko_ssm" {
+  role       = aws_iam_role.yoshiko_codedeploy.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_role_policy_attachment" "yoshiko_codedeploy" {
   role       = aws_iam_role.yoshiko_codedeploy.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole"
