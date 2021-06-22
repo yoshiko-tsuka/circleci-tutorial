@@ -55,7 +55,7 @@ workflows:
                 - main
           context: AWS_CREDENTIALS
           application-name: yoshiko-test-main
-          bundle-bucket: yoshiko-codedeploy/main/
+          bundle-bucket: yoshiko-codedeploy/main
           bundle-key: ${CODE_DEPLOY_S3_KEY}
           deployment-group: yoshiko-test-grp-main
           service-role-arn: ${CODE_DEPLOY_ARN}
