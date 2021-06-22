@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "yoshiko_ec2_codedeploy_conf" {
       "s3:List*"
     ]
     resources = [
-      "arn:aws:s3:::yoshiko-codedeploy/${var.env}/*",
+      "arn:aws:s3:::yoshiko-codedeploy/*",
       "arn:aws:s3:::aws-codedeploy-us-west-2/*"
     ]
   }
