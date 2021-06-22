@@ -64,7 +64,7 @@ resource "aws_iam_role" "yoshiko_ec2_codedeploy" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "Service": "s3.amazonaws.com"
+        "Service": "ec2.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     }
@@ -97,3 +97,9 @@ resource "aws_iam_role_policy_attachment" "yoshiko_ec2_codedeploy" {
   role       = aws_iam_role.yoshiko_ec2_codedeploy.name
   policy_arn = aws_iam_policy.yoshiko_ec2_codedeploy.arn
 }
+
+resource "aws_iam_role_policy_attachment" "yoshiko_ssm" {
+  role       = aws_iam_role.yoshiko_ec2_codedeploy.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
