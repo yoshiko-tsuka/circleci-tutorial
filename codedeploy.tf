@@ -64,7 +64,7 @@ resource "aws_iam_role" "yoshiko_ec2_codedeploy" {
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "Service": "s3.amazonaws.com"
+        "Service": "ec2.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     }
