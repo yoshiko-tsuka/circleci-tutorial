@@ -39,7 +39,7 @@ resource "aws_codedeploy_deployment_group" "yoshiko_test_grp" {
   }
 }
 
-resource "aws_s3_bucket" "cdl_lambda" {
+resource "aws_s3_bucket" "s3-yoshiko-codedeploy" {
   bucket = "yoshiko-codedeploy"
   acl    = "private"
 
@@ -51,6 +51,26 @@ resource "aws_s3_bucket" "cdl_lambda" {
   versioning {
     enabled = true
   }
+}
+
+resource "aws_iam_role" "yoshiko_ec2_codedeploy" {
+  name = "yoshiko_ec2_codedeploy"
+  path = "/"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
 }
 
 data "aws_iam_policy_document" "yoshiko_ec2_codedeploy_conf" {
@@ -68,7 +88,12 @@ data "aws_iam_policy_document" "yoshiko_ec2_codedeploy_conf" {
 }
 
 resource "aws_iam_policy" "yoshiko_ec2_codedeploy" {
-  name        = "yoshiko-ec2-codedeploy-${var.env}"
+  name        = "yoshiko-ec2-codedeploy"
   description = "codedeploy ec2 resource"
   policy      = data.aws_iam_policy_document.yoshiko_ec2_codedeploy_conf.json
+}
+
+resource "aws_iam_role_policy_attachment" "yoshiko_ec2_codedeploy" {
+  role       = aws_iam_role.yoshiko_ec2_codedeploy.name
+  policy_arn = aws_iam_policy.yoshiko_ec2_codedeploy.arn
 }

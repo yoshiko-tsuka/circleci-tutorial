@@ -20,9 +20,15 @@ resource "aws_instance" "app_server" {
   key_name      = aws_key_pair.personal.id
   user_data     = file("${var.root_dir}/ec2/userdata/apache")
   vpc_security_group_ids = ["${aws_security_group.web_server.id}"]
+  iam_instance_profile   = aws_iam_instance_profile.app_server.name
   tags = {
     Name = "WebServerInstance"
   }
+}
+
+resource "aws_iam_instance_profile" "app_server" {
+  name = "app-server-profile"
+  role = aws_iam_role.yoshiko_ec2_codedeploy.name
 }
 
 resource "aws_key_pair" "personal" {
