@@ -1,0 +1,32 @@
+#! /bin/bash
+
+### codedeploy
+sudo yum -y install ruby
+sudo yum -y install wget
+cd /home/ec2-user
+wget https://aws-codedeploy-us-west-2.s3.amazonaws.com/latest/install
+chmod +x ./install
+./install auto
+sudo service codedeploy-agent status
+
+### apache
+sudo yum -y install httpd
+sudo service httpd start
+sudo systemctl enable httpd.service
+
+### git
+### sudo yum -y update
+### sudo yum -y install git
+
+### nvm
+### git clone https://github.com/creationix/nvm.git ~/.nvm
+### source ~/.nvm/nvm.sh
+
+### cat > ~/.bash_profile <<'EOF'
+### net.ipv4.ip_forward = 1
+### net.ipv4.conf.eth0.send_redirects = 0
+### EOF
+
+### nvm install v14.10.1
+### sudo systemctl start nginx.service
+
