@@ -55,6 +55,6 @@ workflows:
                 - main
           application-name: yoshiko-test-main
           bundle-bucket: yoshiko-codedeploy # do not contain forward-slash (/) https://github.com/aws/aws-sdk-ruby/blob/e0d54edd750a3522e44b0b5fe962a6fefbdfba7e/gems/aws-sdk-s3/lib/aws-sdk-s3/plugins/bucket_name_restrictions.rb#L23
-          bundle-key: ${CIRCLE_BUILD_NUM}
+          bundle-key: circleci-tutorial/${CIRCLE_BUILD_NUM}
           deployment-group: yoshiko-test-grp-main
           service-role-arn: ${CODE_DEPLOY_ARN}

@@ -3,3 +3,8 @@ os: linux
 files:
   - source: /html
     destination: /var/www/html
+hooks:
+  AfterInstall:
+    - location: update_index.sh
+      timeout: 300
+      runas: root
